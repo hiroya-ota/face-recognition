@@ -1,7 +1,6 @@
 import streamlit as st 
 from PIL import Image
 from PIL import ImageDraw
-from PIL import ImageFont
 import requests
 import io
 
@@ -41,9 +40,8 @@ if uploaded_file is not None:
             rect = result['faceRectangle']
             attribute = result['faceAttributes']
             text = attribute['gender'] + "," + str(attribute['age'])
-            font = ImageFont.truetype("arial.ttf", 32)
             draw = ImageDraw.Draw(img)
             draw.rectangle([(rect['left'],rect['top']), (rect['left']+rect['width'] ,rect['top']+rect['height'])], fill=None, outline='red', width=5)
-            draw.text((rect['left'], rect['top']), text, fill=(255, 255, 255), font=font)
+            draw.text((rect['left'], rect['top']), text, fill=(255, 255, 255))
         
         st.image(img, caption='Uploaded Image.', use_column_width=True)
